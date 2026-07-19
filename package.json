@@ -1,0 +1,13 @@
+{
+  "name": "pagemint",
+  "version": "1.0.0",
+  "private": true,
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "dev": "pnpm -r --parallel dev",
+    "build": "pnpm --filter web build",
+    "start": "pnpm --filter web start"
+  }
+}
