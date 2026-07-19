@@ -64,7 +64,7 @@ export default function Leaderboard() {
         <WalletButton />
       </nav>
       <main className="mx-auto max-w-5xl px-5 py-16">
-        <div className="mb-12 flex items-center gap-4">
+        <div className="mb-12 flex items-start gap-4">
           <div className="grid size-12 place-items-center rounded-xl border border-white/10">
             <Trophy size={21} />
           </div>
