@@ -101,11 +101,34 @@ const PromptInputTextarea = React.forwardRef<
   const context = React.useContext(PromptInputContext);
   const setTextareaNode = context?.setTextareaNode;
   const onSubmit = context?.onSubmit;
+
+  const localRef = React.useRef<HTMLTextAreaElement | null>(null);
+
   const handleTextareaRef = React.useCallback(
     (node: HTMLTextAreaElement | null) => {
+      localRef.current = node;
       mergeRefs<HTMLTextAreaElement>(setTextareaNode, ref)(node);
     },
     [setTextareaNode, ref],
+  );
+
+  const adjustHeight = React.useCallback(() => {
+    const node = localRef.current;
+    if (!node) return;
+    node.style.height = "auto";
+    node.style.height = `${node.scrollHeight}px`;
+  }, []);
+
+  React.useEffect(() => {
+    adjustHeight();
+  }, [props.value, adjustHeight]);
+
+  const handleChange = React.useCallback(
+    (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+      adjustHeight();
+      props.onChange?.(e);
+    },
+    [props.onChange, adjustHeight],
   );
 
   const handleKeyDown = React.useCallback(
@@ -127,11 +150,12 @@ const PromptInputTextarea = React.forwardRef<
           aria-label="Message input"
           placeholder="How can I help you today?"
           className={cn(
-            "min-h-14 w-full resize-none border-0 bg-transparent px-4 py-4 text-sm leading-6 font-normal text-primary shadow-none outline-none placeholder:text-muted-foreground focus-visible:ring-0 focus-visible:ring-offset-0 dark:bg-transparent",
+            "min-h-[38px] w-full resize-none border-0 bg-transparent px-5 py-4 text-base leading-6 font-normal text-primary shadow-none outline-none placeholder:text-muted-foreground focus-visible:ring-0 focus-visible:ring-offset-0 dark:bg-transparent",
             className,
           )}
           onKeyDown={handleKeyDown}
           {...props}
+          onChange={handleChange}
         />
       </ScrollViewport>
     </ScrollArea>

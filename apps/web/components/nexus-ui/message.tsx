@@ -22,7 +22,7 @@ import { cn } from "@/lib/utils";
 const streamdownPlugins = { cjk, code, math, mermaid } as const;
 
 const messageMarkdownProseClasses = [
-  "prose max-w-none text-primary font-normal text-sm leading-6.5",
+  "prose max-w-none text-primary font-normal text-base leading-6.5",
   // headings
   "prose-headings:font-[450] prose-headings:leading-5.5 prose-h2:tracking-[-0.45px] prose-headings:mb-4 prose-headings:mt-6 prose-h1:text-xl prose-h2:text-lg prose-h3:text-base prose-h3:leading-4.5 prose-h3:tracking-[-0.4px] prose-h4:text-sm prose-h5:text-xs prose-h6:text-xs",
   // heading links
@@ -83,8 +83,8 @@ const Message = React.forwardRef<HTMLDivElement, MessageProps>(function Message(
         aria-label={ariaLabel}
         aria-labelledby={ariaLabelledBy}
         className={cn(
-          "group/message flex w-full max-w-[90%] items-start gap-2",
-          from === "user" ? "ms-auto" : "me-auto",
+          "group/message flex w-full max-w-[100%] items-start gap-2",
+          from === "user" ? "flex-row-reverse" : "me-auto",
           className,
         )}
         {...props}
@@ -124,7 +124,7 @@ function MessageContent({ className, ...props }: MessageContentProps) {
     <div
       data-slot="message-content"
       className={cn(
-        "rounded-2xl text-sm leading-6.5 text-primary",
+        "rounded-2xl text-base leading-6.5 text-primary",
         from === "user"
           ? "w-fit bg-secondary px-4 py-2"
           : "mb-1 w-full bg-transparent px-2",
